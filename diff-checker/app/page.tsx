@@ -6,6 +6,7 @@ import DiffViewer from '@/components/DiffViewer';
 import DiffSummary from '@/components/DiffSummary';
 import { stripSRT, normalizeText, computeDiff, DiffConfig, reformatText, processDiff } from '@/lib/diffUtils';
 import { Settings, Sparkles } from 'lucide-react';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 export default function Home() {
   const [leftText, setLeftText] = useState('');
@@ -24,17 +25,6 @@ export default function Home() {
     const normRight = normalizeText(rightText, config);
 
     // 2. Compute Diff (using words mode by default as it's most common for text)
-    // If we wanted to be fancy, we could let user choose char/word/line mode.
-    // For now, 'words' is a good default for general text.
-    // However, if 'break sentences' is on, 'lines' mode might visually make more sense 
-    // BUT diffWords still works well. Let's stick to diffWords primarily or diffLines if broken.
-
-    // Actually, if we normalized by inserting newlines (break sentences), 
-    // diffLines might be cleaner, but diffWords is more granular.
-    // Let's stick to a smart default.
-    // Actually, if we normalized by inserting newlines (break sentences), 
-    // diffLines might be cleaner, but diffWords is more granular.
-    // Let's stick to a smart default.
     const rawDiff = computeDiff(normLeft, normRight, config.breakSentences ? 'lines' : 'words');
 
     // 3. Post-process (filtering punctuation)
@@ -46,19 +36,22 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 p-6 flex flex-col gap-6">
+    <main className="min-h-screen bg-background text-foreground p-6 flex flex-col gap-6 transition-colors duration-300">
 
       {/* Header */}
-      <header className="flex items-center gap-3 pb-2 border-b border-slate-800/50">
-        <div className="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg shadow-lg shadow-cyan-500/20">
-          <Sparkles className="text-white" size={24} />
+      <header className="flex items-center justify-between pb-2 border-b border-border">
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg shadow-lg shadow-cyan-500/20">
+            <Sparkles className="text-white" size={24} />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600 dark:from-cyan-400 dark:to-blue-400">
+              DiffChecker Pro
+            </h1>
+            <p className="text-xs text-muted-foreground font-medium">Advanced Text Comparison Tool</p>
+          </div>
         </div>
-        <div>
-          <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-400">
-            DiffChecker Pro
-          </h1>
-          <p className="text-xs text-slate-500 font-medium">Advanced Text Comparison Tool</p>
-        </div>
+        <ThemeToggle />
       </header>
 
       {/* Main Grid: Inputs */}
@@ -92,41 +85,40 @@ export default function Home() {
 
           {/* Settings Box */}
           <div className="glass-panel rounded-xl p-5 space-y-4">
-            <div className="flex items-center gap-2 pb-2 border-b border-slate-700/50 text-slate-200 font-semibold">
-              <Settings size={18} className="text-secondary" />
+            <div className="flex items-center gap-2 pb-2 border-b border-border text-foreground font-semibold">
+              <Settings size={18} className="text-muted-foreground" />
               Comparison Options
             </div>
 
             <div className="flex flex-col gap-3">
-
-              {/* <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-800/50 cursor-pointer group transition-colors">
+              {/* <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 cursor-pointer group transition-colors">
                 <input
                   type="checkbox"
                   checked={config.breakSentences}
                   onChange={() => toggleConfig('breakSentences')}
-                  className="w-4 h-4 rounded border-slate-600 text-cyan-500 focus:ring-cyan-500/20 bg-slate-700"
+                  className="w-4 h-4 rounded border-input text-primary focus:ring-ring bg-background"
                 />
-                <span className="text-sm text-slate-400 group-hover:text-slate-200 transition-colors">Break Sentences</span>
+                <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">Break Sentences</span>
               </label> */}
 
-              {/* <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-800/50 cursor-pointer group transition-colors">
+              {/* <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 cursor-pointer group transition-colors">
                 <input
                   type="checkbox"
                   checked={config.ignoreWhitespace}
                   onChange={() => toggleConfig('ignoreWhitespace')}
-                  className="w-4 h-4 rounded border-slate-600 text-cyan-500 focus:ring-cyan-500/20 bg-slate-700"
+                  className="w-4 h-4 rounded border-input text-primary focus:ring-ring bg-background"
                 />
-                <span className="text-sm text-slate-400 group-hover:text-slate-200 transition-colors">Ignore Whitespace</span>
+                <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">Ignore Whitespace</span>
               </label> */}
 
-              <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-800/50 cursor-pointer group transition-colors">
+              <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 cursor-pointer group transition-colors">
                 <input
                   type="checkbox"
                   checked={config.ignorePunctuation}
                   onChange={() => toggleConfig('ignorePunctuation')}
-                  className="w-4 h-4 rounded border-slate-600 text-cyan-500 focus:ring-cyan-500/20 bg-slate-700"
+                  className="w-4 h-4 rounded border-input text-primary focus:ring-ring bg-background"
                 />
-                <span className="text-sm text-slate-400 group-hover:text-slate-200 transition-colors">Ignore Equivalent Punctuation</span>
+                <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">Ignore Equivalent Punctuation</span>
               </label>
             </div>
           </div>
@@ -136,6 +128,6 @@ export default function Home() {
         </div>
 
       </div>
-    </main>
+    </main >
   );
 }
