@@ -25,8 +25,8 @@ export default function DiffViewer({ changes }: DiffViewerProps) {
                 <span
                     key={idx}
                     className={clsx(
-                        change.added && 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-100 decoration-emerald-500/30 rounded border border-emerald-200/50 dark:border-emerald-200/20',
-                        change.removed && 'bg-rose-100 text-rose-800 line-through dark:bg-rose-900/50 dark:text-rose-100 decoration-rose-500/30 opacity-70 rounded border border-rose-200/50 dark:border-rose-200/20',
+                        change.added && 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/80 dark:text-emerald-100 decoration-emerald-500/30 rounded border border-emerald-200/50 dark:border-emerald-200/20',
+                        change.removed && 'bg-rose-100 text-rose-800 line-through dark:bg-rose-900/80 dark:text-rose-100 decoration-rose-500/30 opacity-70 rounded border border-rose-200/50 dark:border-rose-200/20',
                         !change.added && !change.removed && 'text-muted-foreground'
                     )}
                 >
@@ -55,7 +55,7 @@ export default function DiffViewer({ changes }: DiffViewerProps) {
                                 <span
                                     key={idx}
                                     className={clsx(
-                                        change.removed && 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-200 rounded border border-rose-200/50 dark:border-rose-200/20',
+                                        change.removed && 'bg-rose-100 text-rose-800 dark:bg-rose-900/80 dark:text-rose-200 rounded border border-rose-200/50 dark:border-rose-200/20',
                                         !change.removed && 'text-muted-foreground'
                                     )}
                                 >
@@ -74,7 +74,7 @@ export default function DiffViewer({ changes }: DiffViewerProps) {
                                 <span
                                     key={idx}
                                     className={clsx(
-                                        change.added && 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200 rounded border border-emerald-200/50 dark:border-emerald-200/20',
+                                        change.added && 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/80 dark:text-emerald-200 rounded border border-emerald-200/50 dark:border-emerald-200/20',
                                         !change.added && 'text-muted-foreground'
                                     )}
                                 >
