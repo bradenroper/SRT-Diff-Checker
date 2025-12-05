@@ -28,8 +28,8 @@ export default function DiffSummary({ changes }: DiffSummaryProps) {
                     <div
                         key={idx}
                         className={`flex items-start gap-3 p-2 rounded-lg text-sm font-mono border ${change.added
-                            ? 'bg-emerald-100/50 border-emerald-200/50 text-emerald-900 dark:bg-emerald-950/30 dark:border-emerald-900/30 dark:text-emerald-200'
-                            : 'bg-rose-100/50 border-rose-200/50 text-rose-900 dark:bg-rose-950/30 dark:border-rose-900/30 dark:text-rose-200'
+                            ? 'bg-emerald-100/50 border-emerald-200/50 text-emerald-900 dark:bg-emerald-950/80 dark:border-emerald-900/30 dark:text-emerald-200'
+                            : 'bg-rose-100/50 border-rose-200/50 text-rose-900 dark:bg-rose-950/80 dark:border-rose-900/30 dark:text-rose-200'
                             }`}
                     >
                         <span className={`mt-0.5 p-0.5 rounded ${change.added ? 'bg-emerald-500/20' : 'bg-rose-500/20'}`}>
