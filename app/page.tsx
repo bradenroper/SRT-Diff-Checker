@@ -5,7 +5,7 @@ import InputPanel from '@/components/InputPanel';
 import DiffViewer from '@/components/DiffViewer';
 import DiffSummary from '@/components/DiffSummary';
 import { stripSRT, normalizeText, computeDiff, DiffConfig, reformatText, processDiff } from '@/lib/diffUtils';
-import { Settings, Sparkles } from 'lucide-react';
+import { Settings, Sparkles, Zap } from 'lucide-react';
 import { ThemeToggle } from '@/components/ThemeToggle';
 
 export default function Home() {
@@ -41,14 +41,16 @@ export default function Home() {
       {/* Header */}
       <header className="flex items-center justify-between pb-2 border-b border-border">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg shadow-lg shadow-cyan-500/20">
+          {/* <div className="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg shadow-lg shadow-cyan-500/20">
             <Sparkles className="text-white" size={24} />
-          </div>
+          </div> */}
           <div>
-            <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600 dark:from-cyan-400 dark:to-blue-400">
-              DiffChecker Pro
+            <h1 className="flex flex-row items-center text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600 dark:from-cyan-400 dark:to-blue-400">
+              TC
+              <Zap className='text-cyan-500' />
+              DC
             </h1>
-            <p className="text-xs text-muted-foreground font-medium">Advanced Text Comparison Tool</p>
+            <p className="text-xs text-muted-foreground font-medium">Transcript Caption Diff Checker</p>
           </div>
         </div>
         <ThemeToggle />
