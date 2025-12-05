@@ -25,9 +25,9 @@ export default function DiffViewer({ changes }: DiffViewerProps) {
                 <span
                     key={idx}
                     className={clsx(
-                        change.added && 'bg-emerald-900/50 text-emerald-100 decoration-emerald-500/30',
-                        change.removed && 'bg-rose-900/50 text-rose-100 line-through decoration-rose-500/30 opacity-70',
-                        !change.added && !change.removed && 'text-slate-400'
+                        change.added && 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-100 decoration-emerald-500/30 rounded border border-emerald-200/50 dark:border-emerald-200/20',
+                        change.removed && 'bg-rose-100 text-rose-800 line-through dark:bg-rose-900/50 dark:text-rose-100 decoration-rose-500/30 opacity-70 rounded border border-rose-200/50 dark:border-rose-200/20',
+                        !change.added && !change.removed && 'text-muted-foreground'
                     )}
                 >
                     {change.value}
@@ -45,9 +45,9 @@ export default function DiffViewer({ changes }: DiffViewerProps) {
         // Highlighting the differences.
 
         return (
-            <div className="grid grid-cols-2 gap-px bg-slate-700/50 rounded-lg overflow-hidden border border-slate-700/50">
+            <div className="grid grid-cols-2 gap-px bg-border rounded-lg overflow-hidden border border-border">
                 {/* Left / Original */}
-                <div className="bg-slate-900/80 p-4 overflow-x-auto">
+                <div className="bg-muted/30 p-4 overflow-x-auto">
                     <div className="font-mono text-sm whitespace-pre-wrap">
                         {changes.map((change, idx) => {
                             if (change.added) return null; // Don't show added things in original
@@ -55,8 +55,8 @@ export default function DiffViewer({ changes }: DiffViewerProps) {
                                 <span
                                     key={idx}
                                     className={clsx(
-                                        change.removed && 'bg-rose-900/40 text-rose-200',
-                                        !change.removed && 'text-slate-400'
+                                        change.removed && 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-200 rounded border border-rose-200/50 dark:border-rose-200/20',
+                                        !change.removed && 'text-muted-foreground'
                                     )}
                                 >
                                     {change.value}
@@ -66,7 +66,7 @@ export default function DiffViewer({ changes }: DiffViewerProps) {
                     </div>
                 </div>
                 {/* Right / New */}
-                <div className="bg-slate-900/80 p-4 overflow-x-auto border-l border-slate-700">
+                <div className="bg-muted/30 p-4 overflow-x-auto border-l border-border">
                     <div className="font-mono text-sm whitespace-pre-wrap">
                         {changes.map((change, idx) => {
                             if (change.removed) return null; // Don't show removed things in new
@@ -74,8 +74,8 @@ export default function DiffViewer({ changes }: DiffViewerProps) {
                                 <span
                                     key={idx}
                                     className={clsx(
-                                        change.added && 'bg-emerald-900/40 text-emerald-200',
-                                        !change.added && 'text-slate-400'
+                                        change.added && 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200 rounded border border-emerald-200/50 dark:border-emerald-200/20',
+                                        !change.added && 'text-muted-foreground'
                                     )}
                                 >
                                     {change.value}
@@ -90,16 +90,16 @@ export default function DiffViewer({ changes }: DiffViewerProps) {
 
     return (
         <div className="glass-panel rounded-xl overflow-hidden flex flex-col h-full">
-            <div className="flex items-center justify-between px-4 py-3 bg-slate-800/50 border-b border-slate-700/50">
-                <h3 className="font-semibold text-slate-200">Comparison Result</h3>
-                <div className="flex bg-slate-900/50 rounded-lg p-1 border border-slate-700/50">
+            <div className="flex items-center justify-between px-4 py-3 bg-card/50 border-b border-border">
+                <h3 className="font-semibold text-card-foreground">Comparison Result</h3>
+                <div className="flex bg-muted/50 rounded-lg p-1 border border-border">
                     <button
                         onClick={() => setViewMode('unified')}
                         className={clsx(
                             "flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-md transition-all",
                             viewMode === 'unified'
-                                ? 'bg-slate-700 text-cyan-400 shadow-sm'
-                                : 'text-slate-500 hover:text-slate-300'
+                                ? 'bg-background text-primary shadow-sm'
+                                : 'text-muted-foreground hover:text-foreground'
                         )}
                     >
                         <LayoutTemplate size={14} /> Unified
@@ -109,8 +109,8 @@ export default function DiffViewer({ changes }: DiffViewerProps) {
                         className={clsx(
                             "flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-md transition-all",
                             viewMode === 'split'
-                                ? 'bg-slate-700 text-cyan-400 shadow-sm'
-                                : 'text-slate-500 hover:text-slate-300'
+                                ? 'bg-background text-primary shadow-sm'
+                                : 'text-muted-foreground hover:text-foreground'
                         )}
                     >
                         <Columns size={14} /> Split

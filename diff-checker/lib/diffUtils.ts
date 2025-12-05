@@ -35,34 +35,9 @@ export const reformatText = (text: string): string => {
 };
 
 export const processDiff = (changes: Change[], config: DiffConfig): Change[] => {
-    let processed = [...changes];
-
-    if (config.ignorePunctuation) {
-        processed = processed.map(change => {
-            // Check if content is strictly punctuation/whitespace
-            const isPunctuation = /^[\s.,\/#!$%\^&\*;:{}=\-_`~()'"?]+$/.test(change.value);
-
-            if (isPunctuation) {
-                // If it's just punctuation, treat it as unchanged text
-                return { ...change, added: false, removed: false };
-            }
-            return change;
-        });
-
-        // Merge adjacent unchanged nodes to keep the array clean
-        const merged: Change[] = [];
-        processed.forEach(change => {
-            const last = merged[merged.length - 1];
-            if (last && !last.added && !last.removed && !change.added && !change.removed) {
-                last.value += change.value;
-            } else {
-                merged.push(change);
-            }
-        });
-        return merged;
-    }
-
-    return processed;
+    // Post-processing is no longer needed for punctuation ignoring as it is handled by normalization
+    // We can add other post-processing steps here if needed in the future
+    return changes;
 };
 
 export const normalizeText = (text: string, config: DiffConfig): string => {
@@ -73,7 +48,38 @@ export const normalizeText = (text: string, config: DiffConfig): string => {
         processed = processed.replace(/([.!?])\s+/g, '$1\n');
     }
 
-    // Punctuation ignoring is now handled in processDiff (post-diff) to avoid altering original text structure before diff
+    if (config.ignorePunctuation) {
+        // Normalize punctuation variants to a canonical form
+        // This satisfies the requirement: "ignore when there are two different types of punctuation used"
+        // while preserving diffs when punctuation is present in one but not the other.
+        const replacements: Record<string, string> = {
+            // Dashes and Hyphens
+            '—': '-', // Em dash
+            '–': '-', // En dash
+            '−': '-', // Minus sign
+            '‒': '-', // Figure dash
+            '―': '-', // Horizontal bar
+
+            // Quotes (Smart quotes to straight quotes)
+            '“': '"',
+            '”': '"',
+            '„': '"',
+            '«': '"',
+            '»': '"',
+            '‘': "'",
+            '’': "'",
+            '‚': "'",
+            '‹': "'",
+            '›': "'",
+
+            // Ellipsis
+            '…': '...'
+        };
+
+        // Regex to match any of the keys in replacements
+        const pattern = new RegExp(Object.keys(replacements).join('|'), 'g');
+        processed = processed.replace(pattern, char => replacements[char]);
+    }
 
     if (config.ignoreWhitespace) {
         // collapse all whitespace (spaces, tabs, newlines) to a single space
