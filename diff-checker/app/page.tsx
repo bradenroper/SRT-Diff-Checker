@@ -98,7 +98,8 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col gap-3">
-              <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-800/50 cursor-pointer group transition-colors">
+
+              {/* <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-800/50 cursor-pointer group transition-colors">
                 <input
                   type="checkbox"
                   checked={config.breakSentences}
@@ -106,9 +107,9 @@ export default function Home() {
                   className="w-4 h-4 rounded border-slate-600 text-cyan-500 focus:ring-cyan-500/20 bg-slate-700"
                 />
                 <span className="text-sm text-slate-400 group-hover:text-slate-200 transition-colors">Break Sentences</span>
-              </label>
+              </label> */}
 
-              <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-800/50 cursor-pointer group transition-colors">
+              {/* <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-800/50 cursor-pointer group transition-colors">
                 <input
                   type="checkbox"
                   checked={config.ignoreWhitespace}
@@ -116,7 +117,7 @@ export default function Home() {
                   className="w-4 h-4 rounded border-slate-600 text-cyan-500 focus:ring-cyan-500/20 bg-slate-700"
                 />
                 <span className="text-sm text-slate-400 group-hover:text-slate-200 transition-colors">Ignore Whitespace</span>
-              </label>
+              </label> */}
 
               <label className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-800/50 cursor-pointer group transition-colors">
                 <input
@@ -125,7 +126,7 @@ export default function Home() {
                   onChange={() => toggleConfig('ignorePunctuation')}
                   className="w-4 h-4 rounded border-slate-600 text-cyan-500 focus:ring-cyan-500/20 bg-slate-700"
                 />
-                <span className="text-sm text-slate-400 group-hover:text-slate-200 transition-colors">Ignore Punctuation</span>
+                <span className="text-sm text-slate-400 group-hover:text-slate-200 transition-colors">Ignore Equivalent Punctuation</span>
               </label>
             </div>
           </div>
